@@ -1,8 +1,8 @@
 postgres:
   database: polls
-  user: user
+  user: polls_user
   password: pass
   host: localhost
-  port: 5432
+  port: 55001
   minsize: 1
   maxsize: 5
