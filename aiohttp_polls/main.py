@@ -10,7 +10,7 @@ app = web.Application()
 setup_routes(app)
 app['config'] = postgres_config
 aiohttp_jinja2.setup(
-    app=app, loader=jinja2.FileSystemLoader(str(BASE_DIR / 'aiohttpdemo_polls' / 'templates'))
+    app=app, loader=jinja2.FileSystemLoader(str(BASE_DIR / 'aiohttp_polls' / 'templates'))
 )
 app.cleanup_ctx.append(add_db_engine)
 web.run_app(app)
