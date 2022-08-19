@@ -1,3 +1,4 @@
+import aiopg
 from sqlalchemy import (
     MetaData, Table, Column, ForeignKey, Integer, String, Date
 )
@@ -23,3 +24,22 @@ choice = Table(
            Integer,
            ForeignKey('question.id', ondelete='CASCADE'))
 )
+
+
+async def add_db_engine(app):
+    conf = app['config']['postgres']
+    engine = await aiopg.sa.create_engine(
+        database=conf['database'],
+        user=conf['user'],
+        password=conf['password'],
+        host=conf['host'],
+        port=conf['port'],
+        minsize=conf['minsize'],
+        maxsize=conf['maxsize'],
+    )
+    app['db'] = engine
+
+    yield
+
+    app['db'].close()
+    await app['db'].wait_closed()
