@@ -1,4 +1,4 @@
-import aiopg
+from aiopg.sa import create_engine
 from sqlalchemy import (
     MetaData, Table, Column, ForeignKey, Integer, String, Date
 )
@@ -28,7 +28,7 @@ choice = Table(
 
 async def add_db_engine(app):
     conf = app['config']['postgres']
-    engine = await aiopg.sa.create_engine(
+    engine = await create_engine(
         database=conf['database'],
         user=conf['user'],
         password=conf['password'],
